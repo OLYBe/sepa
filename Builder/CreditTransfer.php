@@ -58,6 +58,11 @@ class CreditTransfer extends Base {
         $paymentMethod = $this->createElement('PmtMtd', $paymentInformation->getPaymentMethod());
         $this->payment->appendChild($paymentMethod);
 
+        if ($paymentInformation->isBatchBooking()) {
+            $batchBooking = $this->createElement('BtchBookg', 1);
+            $this->payment->appendChild($batchBooking);
+        }
+
         $pmtTpInf = $this->createElement('PmtTpInf');
         $svcLvl = $this->createElement('SvcLvl');
         $svcLvl->appendChild($this->createElement('Cd', 'SEPA'));
@@ -135,7 +140,7 @@ class CreditTransfer extends Base {
      * @return string
      */
     public function xml() {
-        return (string) $this->dom->saveXML();
+        return (string) $this->dom->saveXML($this->dom, LIBXML_NOEMPTYTAG);
     }
 
 }

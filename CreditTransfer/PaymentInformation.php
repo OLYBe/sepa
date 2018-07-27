@@ -60,6 +60,12 @@ class PaymentInformation {
 
     /**
      *
+     * @var bool
+     */
+    protected $batchBooking = false;
+
+    /**
+     *
      * @var array
      */
     protected $payments = array();
@@ -119,6 +125,15 @@ class PaymentInformation {
     }
 
     /**
+     *
+     * @return bool
+     */
+    public function isBatchBooking()
+    {
+        return $this->batchBooking;
+    }
+
+    /**
      * 
      * @return array
      */
@@ -169,6 +184,16 @@ class PaymentInformation {
      */
     public function setDebtorBIC($BIC) {
         $this->debtorBIC = $BIC;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param bool $batchBooking
+     * @return \Sepa\CreditTransfer\PaymentInformation
+     */
+    public function setBatchBooking($batchBooking) {
+        $this->batchBooking = $batchBooking;
         return $this;
     }
 
