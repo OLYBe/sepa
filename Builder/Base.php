@@ -45,7 +45,13 @@ class Base {
      */
     protected function financialInstitution($BIC = '') {
         $finInstitution = $this->createElement('FinInstnId');
-        $finInstitution->appendChild($this->createElement('BIC', $BIC));
+        $bic = $this->createElement('BIC', $BIC);
+        //$othr->appendChild($this->createElement('Id', $BIC));
+        $finInstitution->appendChild($bic);
+
+        //$id = $this->createElement('Id');
+        //$id->appendChild($this->createElement('BIC', $BIC));
+
         return $finInstitution;
     }
 

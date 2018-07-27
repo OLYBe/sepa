@@ -51,11 +51,18 @@ class CreditTransfer extends Base {
     public function appendPaymentInformation(PaymentInformation $paymentInformation) {
         $this->payment = $this->createElement('PmtInf');
 
+
         $paymentInformationIdentification = $this->createElement('PmtInfId', $paymentInformation->getPaymentInformationIdentification());
         $this->payment->appendChild($paymentInformationIdentification);
 
         $paymentMethod = $this->createElement('PmtMtd', $paymentInformation->getPaymentMethod());
         $this->payment->appendChild($paymentMethod);
+
+        $pmtTpInf = $this->createElement('PmtTpInf');
+        $svcLvl = $this->createElement('SvcLvl');
+        $svcLvl->appendChild($this->createElement('Cd', 'SEPA'));
+        $pmtTpInf->appendChild($svcLvl);
+        $this->payment->appendChild($pmtTpInf);
 
         if ($paymentInformation->getNumberOfTransactions() !== false) {
             $numberOfTransactions = $this->createElement('NbOfTxs', $paymentInformation->getNumberOfTransactions());
